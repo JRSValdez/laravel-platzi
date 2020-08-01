@@ -23,6 +23,7 @@
                     <th>Title</th>
                     <th>Created at</th>
                     <th>Updated at</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,11 @@
                         <td>{{$report->title}}</td>
                         <td>{{$report->created_at}}</td>
                         <td>{{$report->updated_at}}</td>
+                        <td>
+                            <a href="/expense_reports/{{$report->id}}/edit">
+                                Edit
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

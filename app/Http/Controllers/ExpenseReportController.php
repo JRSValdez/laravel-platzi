@@ -63,7 +63,7 @@ class ExpenseReportController extends Controller
      */
     public function edit($id)
     {
-        $report = ExpenseReport::find($id);
+        $report = ExpenseReport::findOrFail($id);
         return view('expenseReport.edit',[
             'report' => $report
         ]);
@@ -78,11 +78,25 @@ class ExpenseReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $report = ExpenseReport::find($id);
+        $report = ExpenseReport::findOrFail($id);
         $report->title = $request->get('title');
         $report->save();
 
         return redirect('/expense_reports');
+    }
+
+    /**
+     * Show the form for confirm delete the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function delete($id)
+    {
+        $report = ExpenseReport::findOrFail($id);
+        return view('expenseReport.delete',[
+            'report' => $report
+        ]);
     }
 
     /**
@@ -93,6 +107,9 @@ class ExpenseReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $report = ExpenseReport::findOrFail($id);
+        $report->delete();
+
+        return redirect('/expense_reports');
     }
 }

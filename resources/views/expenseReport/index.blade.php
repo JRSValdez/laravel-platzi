@@ -37,6 +37,9 @@
                             <a href="/expense_reports/{{$report->id}}/edit">
                                 Edit
                             </a>
+                            <a href="/expense_reports/{{$report->id}}/delete" class="text-danger">
+                                Delete
+                            </a>
                         </td>
                     </tr>
                 @endforeach

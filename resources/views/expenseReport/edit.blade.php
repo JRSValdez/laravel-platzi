@@ -17,6 +17,15 @@
                     <label for="title"> Report Title</label>
                     <input type="text" class="form-control" id="title" name="title" value="{{$report->title}}">
                 </div>
+
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">
+                            {{$error}}
+                        </div>
+                    @endforeach
+                @endif
+
                 <button class="btn btn-success" type="submit">
                     Edit
                 </button>

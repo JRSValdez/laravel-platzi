@@ -37,8 +37,12 @@ class ExpenseReportController extends Controller
      */
     public function store(Request $request)
     {
+        $validData = $request->validate([
+           'title' => 'required|min:3'
+        ]);
+
         $report = new ExpenseReport();
-        $report->title = $request->get('title');
+        $report->title = $validData['title'];
         $report->save();
 
         return redirect('/expense_reports');
@@ -47,12 +51,14 @@ class ExpenseReportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ExpenseReport $expenseReport
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(ExpenseReport $expenseReport)
     {
-        //
+        return view('expenseReport.show',[
+            'report' => $expenseReport
+        ]);
     }
 
     /**
@@ -78,8 +84,14 @@ class ExpenseReportController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validData = $request->validate([
+            'title' => 'required|min:3'
+        ],[
+            'title.min' => "Title {$request['title']} is too short, minimum length is 3"
+        ]);
+
         $report = ExpenseReport::findOrFail($id);
-        $report->title = $request->get('title');
+        $report->title = $validData['title'];
         $report->save();
 
         return redirect('/expense_reports');

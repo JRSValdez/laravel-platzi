@@ -30,7 +30,11 @@
                 @foreach($reports as $report)
                     <tr>
                         <td>{{$report->id}}</td>
-                        <td>{{$report->title}}</td>
+                        <td>
+                            <a href="/expense_reports/{{$report->id}}" style="text-decoration: none; color: black">
+                                {{$report->title}}
+                            </a>
+                        </td>
                         <td>{{$report->created_at}}</td>
                         <td>{{$report->updated_at}}</td>
                         <td>

@@ -20,8 +20,12 @@ Route::get('/dashboard', 'DashboardController@index');
 Route::resource('/expense_reports','ExpenseReportController');
 Route::get('/expense_reports/{id}/delete', 'ExpenseReportController@delete');
 
+//send by mail
+Route::get('/expense_reports/{expense_report}/confirmSendMail', 'ExpenseReportController@confirmSendMail');
+Route::post('/expense_reports/{expense_report}/sendMail', 'ExpenseReportController@sendMail');
+
+
 //expense routes
 Route::get('/expense_reports/{expense_report}/expenses/create', 'ExpenseController@create');
 Route::post('/expense_reports/{expense_report}/expenses', 'ExpenseController@store');
-
 

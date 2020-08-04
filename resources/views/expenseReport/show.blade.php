@@ -44,6 +44,7 @@
     <div class="row my-4">
         <div class="col">
             <a href="/expense_reports/{{$report->id}}/expenses/create" class="btn btn-success">New Expense</a>
+            <a href="/expense_reports/{{$report->id}}/confirmSendMail" class="btn btn-primary">Send Email</a>
         </div>
     </div>
 

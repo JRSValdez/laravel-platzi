@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SummaryReport;
 use App\Models\ExpenseReport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ExpenseReportController extends Controller
 {
@@ -123,5 +125,36 @@ class ExpenseReportController extends Controller
         $report->delete();
 
         return redirect('/expense_reports');
+    }
+
+    /**
+     * Show the view for confirmSendMail the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function confirmSendMail($id)
+    {
+        $report = ExpenseReport::findOrFail($id);
+        return view('expenseReport.confirmSendMail',[
+            'report' => $report
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function sendMail(Request $request, $id){
+
+        $validData = $request->validate([
+            'email' => 'required|email:rfc,dns'
+        ]);
+
+        $report = ExpenseReport::findOrFail($id);
+
+        Mail::to($validData['email'])->send(new SummaryReport($report));
+
+        return redirect("/expense_reports/{$report->id}");
     }
 }
